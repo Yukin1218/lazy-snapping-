@@ -15,8 +15,8 @@ class LasySnapping{
     
 public :
     LasySnapping():graph(NULL){
-        avgForeColor ={0,0,0};
-        avgBackColor ={0,0,0};
+		memset(avgForeColor, 0, 3);
+		memset(avgBackColor, 0, 3);
     }
     ~LasySnapping(){ 
         if(graph){
@@ -99,7 +99,7 @@ private :
 
 float LasySnapping::colorDistance(unsigned char* color1, unsigned char* color2)
 {
-    return sqrt((color1[0]-color2[0])*(color1[0]-color2[0])+
+    return sqrt((double)(color1[0]-color2[0])*(color1[0]-color2[0])+
         (color1[1]-color2[1])*(color1[1]-color2[1])+
         (color1[2]-color2[2])*(color1[2]-color2[2]));    
 }
@@ -119,6 +119,7 @@ float LasySnapping::minDistance(unsigned char* color, vector<CvPoint> points)
             }
         }
     }
+	return distance;
 }
 bool LasySnapping::isPtInVector(CvPoint pt, vector<CvPoint> points)
 {
@@ -270,7 +271,7 @@ void on_mouse( int event, int x, int y, int flags, void* )
 int main(int argc, char** argv)
 {	
     if(argc != 2){
-        cout<<"command : lazysnapping inputImage"<<endl;
+        cout<<strcat(strcat("command : ", argv[0]), "inputImage")<<endl;
         return 0;
     }
     cvNamedWindow(winName,1);
